@@ -2,7 +2,7 @@ local awful = require("awful")
 
 local customCommands = require("customCommands")
 local runCommand = customCommands.runCommand
--- local runInTag = customCommands.runInTag
+local runInTag = customCommands.runInTag
 
 
 -- Save a file in /tmp to indicate that awesome has initialized so that programs don't run again when awesome restarts

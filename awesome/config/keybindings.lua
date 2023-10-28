@@ -370,8 +370,11 @@ clientbuttons = gears.table.join(
 )
 
 
-globalkeys = gears.table.join(
-    globalkeys,
+
+
+
+
+customKeys = gears.table.join(
     -- awful.key(
     -- 	{ modkey, "Shift" }, "g",
 
@@ -624,7 +627,15 @@ globalkeys = gears.table.join(
 
         { description = "change keyboard layout", group = "utility" }
     )
+)
 
+
+
+
+
+globalkeys = gears.table.join(
+    globalkeys,
+    customKeys
 )
 
 root.keys(globalkeys)
