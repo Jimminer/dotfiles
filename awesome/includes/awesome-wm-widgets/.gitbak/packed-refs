@@ -1,0 +1,12 @@
+# pack-refs with: peeled fully-peeled sorted 
+4859e55c2402405ac84c30fd97df037d23f6b20b refs/remotes/origin/274-make-beautiful-optional
+5dc3cb7c1ea76159fbb33eb0a101eddd86a5d7d9 refs/remotes/origin/4.2-human-after-all
+bcd001e487d4d1a9c0ec5335b662d67496e10a4e refs/remotes/origin/74-externalize-config
+f62cf5f0fbad2d0d5a934c04b00f4b9f2954b8a2 refs/remotes/origin/TD-Sky-master
+ed2b256407291d8edadfcea9380029633cc7d9d8 refs/remotes/origin/comply-with-luacheck
+acb569b5146aa7140667b899d22bda915e483472 refs/remotes/origin/gh-pages
+3bb3d56c26ac3500aab33381af0cccebf6aaa05c refs/remotes/origin/master
+de14c1325fc2bed47dcc46a8c316a96d43205392 refs/remotes/origin/pr-213
+96592eb4885c0062de6ee1f948f2ad980464d585 refs/remotes/origin/rocks
+f38996923479001eb34eaef13f21616f19b41aa7 refs/remotes/origin/ubuntu-updates-widget
+54924ef0645c8b7b212066670e00a164c280ed2f refs/tags/v1.0

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1684098446130567-1</unique-id>
+	<command>if [[ -d %f ]]; then alacritty --working-directory %f; else alacritty --working-directory &quot;$(dirname %f)&quot;; fi</command>
+	<description>Open a terminal in this directory</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>edit-copy</icon>
+	<name>Copy Location</name>
+	<submenu></submenu>
+	<unique-id>1684936274923194-1</unique-id>
+	<command>echo -n %f | xclip -selection clipboard</command>
+	<description>Copy the location of the selected items</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>folder-violet</icon>
+	<name>Open in new window</name>
+	<submenu></submenu>
+	<unique-id>1696847598837377-1</unique-id>
+	<command>thunar %f</command>
+	<description>Open Thunar in new window</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>folder-violet-private</icon>
+	<name>Open as root</name>
+	<submenu></submenu>
+	<unique-id>1684099538517856-1</unique-id>
+	<command>pkexec thunar %f</command>
+	<description>Open Thunar with root privileges</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>vscodium</icon>
+	<name>Open in VSCodium</name>
+	<submenu></submenu>
+	<unique-id>1684256771455953-3</unique-id>
+	<command>vscodium %F</command>
+	<description>Open directory/files in VSCodium</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+</action>
+<action>
+	<icon>text-x-hex</icon>
+	<name>Create Hexdump</name>
+	<submenu></submenu>
+	<unique-id>1686333678301936-1</unique-id>
+	<command>hexdump -C %f &gt; &quot;$(mktemp %d/&quot;$(basename %f | cut -f 1 -d &quot;.&quot;)&quot;.XXX.hex)&quot;</command>
+	<description>Create a hexdump of the selected file</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>org.gnome.baobab</icon>
+	<name>Analyze in Baobab</name>
+	<submenu></submenu>
+	<unique-id>1684256848970330-4</unique-id>
+	<command>baobab %f</command>
+	<description>Analyze directory in Baobab</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>multimedia-photo-viewer</icon>
+	<name>Open Viewnior slideshow</name>
+	<submenu></submenu>
+	<unique-id>1684533179442467-1</unique-id>
+	<command>viewnior --slideshow %F</command>
+	<description>Open a Viewnior slideshow in current directory</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>meld</icon>
+	<name>Diff using meld</name>
+	<submenu></submenu>
+	<unique-id>1686335501568448-2</unique-id>
+	<command>fileCount=(%F);      (test ${#fileCount[@]} -eq 2     ||     test ${#fileCount[@]} -eq 3)     &amp;&amp;     meld %F ||     zenity --error --text=&quot;You can only diff 2 or 3 files!&quot;</command>
+	<description>Diff the selected files using meld</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<other-files/>
+	<text-files/>
+</action>
+</actions>
