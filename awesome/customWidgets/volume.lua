@@ -5,8 +5,6 @@ local wibox = require("wibox")
 local awful = require("awful")
 local gears = require("gears")
 
-local runCommand = require("customCommands.runCommand")
-
 volume = {}
 
 volume.widget = wibox.widget.container
@@ -64,44 +62,37 @@ volumeWidget:buttons(
 
 
 local function update_volume()
-    local value = runCommand("pamixer --get-volume")
-    local muted = runCommand("pamixer --get-mute")
+    awful.spawn.easy_async_with_shell("pamixer --get-volume; pamixer --get-mute", function(output)
+        local value, muted = output:match("([^\n]+)\n([^\n]+)")
+        value = tonumber(value)
 
-    value = value:sub(0, -2)
-    muted = muted:sub(0, -2)
-
-    value = tonumber(value)
-    
-    if (value == nil) then value = 0 end
-    if (muted == nil) then muted = "false" end
-    
-
-    if muted == "false" then
-        volume.muted = false
-        volume.volume = value
-        volumeColor = "#a47dff"
-    else
-        volume.muted = true
-        volume.volume = value
-        volumeColor = "#e33a6e"
-    end
-
-
-    icon = (muted == "true" and "") or (value == 0 and "") or (value < 30 and "") or (value < 70 and "") or ""
-    iconText = "<span font='Font Awesome 6 Pro Solid 11' foreground='#7745ff'> " .. icon .. " </span>"
-    volumeText = "<span font='Clear Sans Regular 11' foreground='" .. volumeColor .. "'> " .. value .. "  </span>"
-
-    volumeWidget:set_markup(iconText .. volumeText)
+        if muted == "false" then
+            volume.muted = false
+            volume.volume = value
+            volumeColor = "#a47dff"
+        else
+            volume.muted = true
+            volume.volume = value
+            volumeColor = "#e33a6e"
+        end
+        
+        
+        icon = (muted == "true" and "") or (value == 0 and "") or (value < 30 and "") or (value < 70 and "") or ""
+        iconText = "<span font='Font Awesome 6 Pro Solid 11' foreground='#7745ff'> " .. icon .. " </span>"
+        volumeText = "<span font='Clear Sans Regular 11' foreground='" .. volumeColor .. "'> " .. value .. "  </span>"
+        
+        volumeWidget:set_markup(iconText .. volumeText)
+    end)
 end
 
 
 volume.increment = function (value)
-    runCommand("pamixer -i " .. value)
+    awful.util.spawn("pamixer -i " .. value)
     update_volume()
 end
 
 volume.decrement = function (value)
-    runCommand("pamixer -d " .. value)
+    awful.util.spawn("pamixer -d " .. value)
     update_volume()
 end
 
@@ -111,7 +102,7 @@ volume.mixer = function ()
 end
 
 volume.toggle = function ()
-    runCommand("pamixer -t")
+    awful.util.spawn("pamixer -t")
     update_volume()
 end
 

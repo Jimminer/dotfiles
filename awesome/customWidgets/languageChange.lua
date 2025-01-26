@@ -14,7 +14,7 @@ languageChange.widget = wibox.widget.container
 local languageWidget = wibox.widget {
     align = "center",
     valign = "center",
-    forced_width = 60,
+    forced_width = 65,
     widget = wibox.widget.textbox
 }
 
@@ -49,21 +49,25 @@ languageChange.widget = {
 }
 
 local function display()
-    iconText = "<span font='Font Awesome 6 Free 11' foreground='#7745ff'>  </span>"
-    languageText = "<span font='Clear Sans Regular 11' foreground='#a47dff'>" .. languageTitles[currentLanguage] .. "  </span>"
+    local iconText = "<span font='Font Awesome 6 Free 11' foreground='#7745ff'> </span>"
+    local languageText = "<span font='Clear Sans Regular 11' foreground='#a47dff'>" .. languageTitles[currentLanguage] .. "</span>"
 
     languageWidget:set_markup(iconText .. languageText)
+end
+
+languageChange.initialize = function ()
+    awful.spawn("setxkbmap -layout " .. languageLayout)
 end
 
 languageChange.switch = function ()
     currentLanguage = currentLanguage % #(languages) + 1
 
     if runCommand("setxkbmap -query | grep layout | awk '{print $2}'") ~= languageLayout then
-        awful.spawn.with_shell("setxkbmap -layout " .. languageLayout)
+        awful.spawn("setxkbmap -layout " .. languageLayout)
     end
 
 
-    awful.spawn.with_shell("xkb-switch -s " .. languages[currentLanguage])
+    awful.spawn("xkb-switch -s " .. languages[currentLanguage])
 
     display()
 end
@@ -72,10 +76,6 @@ languageChange.widget.buttons = awful.util.table.join(
     awful.button({ }, 1, function () languageChange.switch() end)
 )
 
-
-awful.spawn.with_shell("setxkbmap -layout " .. languageLayout)
 display()
--- local runCommand = require("customCommands.runCommand")
--- local printn = require("customCommands.printn")
 
 return languageChange

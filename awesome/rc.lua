@@ -198,6 +198,6 @@ beautiful.useless_gap = gaps_amount
 --   GTK Themes Manager: lxappearance
 --   Others: rofi, thunar-archive-plugin, pamixer (AUR)
 
---   Fonts: Clear Sans, Hack Nerd Font, JetBrainsMono Nerd Font, Font Awesome
+--   Fonts: Clear Sans, JetBrainsMono Nerd Font, Font Awesome
 
 --   Alternatives: bat (cat), btop (htop), eza (ls), fd (find), ripgrep (grep)

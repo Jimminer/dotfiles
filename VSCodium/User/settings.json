@@ -1,7 +1,6 @@
 {
     "editor.minimap.enabled": false,
-    "editor.fontFamily": "'JetBrainsMono Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace, 'Font Awesome 6 Pro Solid'",
-    "editor.fontSize": 13,
+    "editor.fontFamily": "'monospace', monospace, 'JetBrainsMono Nerd Font Mono', 'Font Awesome 6 Pro Solid'",
     "editor.fontLigatures": true,
     "sqlite.sqlite3": "/home/mitsos/.vscode-oss/extensions/alexcvzz.vscode-sqlite-0.14.1/bin/sqlite-v3.26.0-linux-x64",
     "sqlite.logLevel": "DEBUG",
@@ -2088,7 +2087,6 @@
             }
           ]
     },
-    "terminal.integrated.fontSize": 12,
     "hexeditor.columnWidth": 32,
     "hexeditor.showDecodedText": true,
     "hexeditor.defaultEndianness": "little",
@@ -2107,7 +2105,7 @@
         // "editor.selectionHighlight": false,
         "editor.suggestSelection": "first",
         "editor.tabCompletion": "onlySnippets",
-        "editor.wordBasedSuggestions": false,
+        "editor.wordBasedSuggestions": "off",
         "editor.tabSize": 4
     },
     "editor.detectIndentation": false,
@@ -2116,8 +2114,22 @@
     "dart.flutterSdkPath": "/home/mitsos/flutter",
     "github.copilot.enable": {
         "*": true,
-        "plaintext": false,
+        "plaintext": true,
         "markdown": true,
         "scminput": false
-    }
+    },
+    "editor.lineNumbers": "relative",
+    "chatgpt.lang": "en",
+    "tabnine.experimentalAutoImports": true,
+    "arduino.useArduinoCli": true,
+    "arduino.commandPath": "arduino-cli",
+    "arduino.path": "/usr/bin",
+    "arduino.additionalUrls": [
+        "https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json"
+    ],
+    "dart.flutterHotReloadOnSave": "all",
+    "omnisharp.useModernNet": false,
+    "dotnet.codeLens.enableReferencesCodeLens": false,
+    "editor.largeFileOptimizations": false,
+    "github.copilot.editor.enableAutoCompletions": true
 }

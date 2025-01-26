@@ -76,11 +76,13 @@ Bar widgets I've made to display useful info or provide some functionality
 
 
 ### Dependencies
-To use this config without making any changes to it you will need the following dependencies:
+Mandatory dependencies
+<!-- To use this config without making any changes to it you will need the following dependencies: -->
 
 - [awesome](https://github.com/awesomeWM/awesome) - The window manager itself
 - [xorg-server](https://wiki.archlinux.org/title/xorg) - Display server
-- [picom-jonaburg-fix](https://github.com/Arian8j2/picom-jonaburg-fix) - Compositor (fork of [picom](https://github.com/yshui/picom) with better animations)
+- [picom-jonaburg-fix](https://github.com/Arian8j2/picom-jonaburg-fix) - Compositor (fork of [picom](https://github.com/yshui/picom) with animation support)
+- [rofi](https://github.com/davatorium/rofi) - Application launcher
 - [Clear Sans Font](https://github.com/intel/clear-sans) - Main font
 - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) - Icons/terminal/vscode font
 - [Font Awesome](https://fontawesome.com/) - Icons font
@@ -91,12 +93,12 @@ All my startups/keybinds are made with the following dependencies in mind. If yo
 
 - [brave](https://brave.com/) - Web browser
 - [VSCodium](https://github.com/VSCodium/vscodium) - Code editor (VSCode without the telemetry)
-- [rofi](https://github.com/davatorium/rofi) - Application launcher
 - [pavucontrol](https://www.archlinux.org/packages/extra/x86_64/pavucontrol/) - PulseAudio volume control
 - [copyq](https://github.com/hluk/CopyQ) - Clipboard manager
 - [flameshot](https://github.com/flameshot-org/flameshot) - Screenshot tool
 - [nm-applet](https://wiki.archlinux.org/title/NetworkManager#nm-applet) - NetworkManager applet
 - [gnome policy kit](https://gitlab.gnome.org/Archive/policykit-gnome) - Policy kit authentication agent
+- [xwinwrap](https://github.com/takase1121/xwinwrap) - Binds a program to the desktop background (used for video wallpaper)
 
 
 ### Customization

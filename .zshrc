@@ -1,41 +1,37 @@
-# p10k stuff
-
 autoload -U compinit; compinit
 autoload -U +X bashcompinit && bashcompinit
+
+
+# p10k stuff
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # Use powerline
 USE_POWERLINE="true"
-# Source manjaro-zsh-configuration
+
+# Zsh config
 if [[ -e ~/.zsh/zsh-config ]]; then
  source ~/.zsh/zsh-config
 fi
-# Use manjaro zsh prompt
+# p10k initialization
 if [[ -e ~/.zsh/zsh-prompt ]]; then
  source ~/.zsh/zsh-prompt
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
-
-
-
-
+export QT_STYLE_OVERRIDE=gtk2
+export QT_QPA_PLATFORMTHEME=gtk2
 
 # Set default editor
-export EDITOR="/bin/micro"
+export EDITOR="/bin/nvim"
 # Set default pager (mainly for manpages)
 export PAGER="/bin/bat"
-
-source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 
 # Enable auto completion for programs that autocomplete themselves
@@ -61,6 +57,12 @@ alias cat="bat"
 
 # Query the pacman repos and fuzzy find the results
 pacfind(){
+    RED="\e[38;5;1m"
+    GREEN="\e[38;5;2m"
+    BLUE="\e[38;5;4m"
+    PURPLE="\e[38;5;5m"
+    RESET="\e[0m"
+
 	# packages=$(pacman -Ssq)
 	# installedPackages=($(pacman -Q | awk '{print $1}'))
 	# for package in $installedPackages; do
@@ -69,12 +71,29 @@ pacfind(){
 
 	# echo "$packages" | fzf -m --preview='echo -en "$(pacman -Si $(echo {} | sed "s/ \[installed\]//"))\n i hate balls"' --bind 'enter:execute(echo {} | sed "s/ \[installed\]//")'
 
-	pacman -Ssq | fzf -m --preview='echo -en "Installed\t: $(pacman -Qi {} &> /dev/null && echo -e "\e[38;5;2mTrue\e[0m" || echo -e "\e[38;5;1mFalse\e[0m")\n$(pacman -Si {})"' --bind 'enter:execute(sudo pacman -S {})'
+	pacman -Ssq | fzf -m --preview='echo -en "Installed\t: $(pacman -Qi {} &> /dev/null>/dev/null 2>&1 && echo -e "\e[38;5;2mTrue\e[0m" || echo -e "\e[38;5;1mFalse\e[0m")\n$(pacman -Si {})"' --bind 'enter:execute(sudo pacman -S {})'
 }
 
 # Query the AUR and fuzzy find the results
 yayfind(){
-	yay -Slaq | fzf -m --preview='echo -en "Installed\t\t      : $(yay -Qi {} &> /dev/null && echo "\e[38;5;2mTrue\e[0m" || echo "\e[38;5;1mFalse\e[0m")\n$(yay -Si {})"' --bind 'enter:execute(yay -S {})'
+    RED="\e[38;5;1m"
+    GREEN="\e[38;5;2m"
+    BLUE="\e[38;5;4m"
+    PURPLE="\e[38;5;5m"
+    RESET="\e[0m"
+
+	yay -Slaq | fzf -m --preview='echo -en "Installed\t\t      : $(yay -Qi {} &> /dev/null>/dev/null 2>&1 && echo "\e[38;5;2mTrue\e[0m" || echo "\e[38;5;1mFalse\e[0m")\n$(yay -Si {})"' --bind 'enter:execute(yay -S {})'
+}
+
+# Query already installed packages and fuzzy find the results
+infind(){
+    RED="\e[38;5;1m"
+    GREEN="\e[38;5;2m"
+    BLUE="\e[38;5;4m"
+    PURPLE="\e[38;5;5m"
+    RESET="\e[0m"
+
+	yay -Qq | fzf -m --preview-window=right:60% --preview='echo -en "Repository\t: $(pacman -Qqm | grep ^{}$ >/dev/null 2>&1 && echo "'$PURPLE'AUR'$RESET'" || echo "'$BLUE'Arch Repos'$RESET'")\n$(yay -Qii {})"'
 }
 # To toggle the preview using the space bar:
 # --bind 'space:toggle-preview'
@@ -160,7 +179,7 @@ export BESTDEV="mitsos"
 export PATH="$HOME/.local/bin:$PATH"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export PATH="$ANDROID_HOME/platform-tools:$PATH"
-export JAVA_HOME="/usr/lib/jvm/java-17-openjdk"
+export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
 export PATH="$HOME/flutter/bin:$PATH"
 # export PATH="$HOME/.bin:$PATH"
 
@@ -173,3 +192,6 @@ export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
 # Alacritty is not always recognized as a terminal with colors in some cases (like ssh)
 export TERM="xterm-256color"
+
+# Override gpu to gxf1030 (Navi 21) for ROCm compatibility
+export HSA_OVERRIDE_GFX_VERSION='10.3.0'

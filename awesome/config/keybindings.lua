@@ -6,7 +6,7 @@ local customWidgets = require("customWidgets")
 local naughty = require("naughty")
 local handy = require("includes/awesome-handy")
 local savedNotifs = {}
-local configPath = string.format("%s/.config/awesome", os.getenv("HOME"))
+local dotfilesPath = string.format("%s/Programming/Repos (GitHub)/dotfiles", os.getenv("HOME"))
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -398,17 +398,17 @@ customKeys = gears.table.join(
         { modkey, "Shift", "Control" }, "e",
 
         function()
-            awful.spawn.with_shell("vscodium " .. configPath)
+            awful.spawn("vscodium '" .. dotfilesPath .. "'")
         end,
 
-        { description = "edit config (vscodium)", group = "awesome" }
+        { description = "edit dotfiles config (vscodium)", group = "awesome" }
     ),
 
     awful.key(
         { modkey, "Shift" }, "b",
 
         function()
-            awful.spawn.with_shell("brave")
+            awful.spawn("brave")
         end,
 
         { description = "launch brave", group = "applications" }
@@ -418,7 +418,7 @@ customKeys = gears.table.join(
         { modkey, "Shift" }, "f",
 
         function()
-            awful.spawn.with_shell("thunar")
+            awful.spawn("thunar")
         end,
 
         { description = "launch thunar", group = "applications" }
@@ -447,7 +447,7 @@ customKeys = gears.table.join(
         { modkey, "Shift" }, "m",
 
         function()
-            awful.spawn.with_shell(
+            awful.spawn(
             "alacritty -o window.dimensions.columns=130 window.dimensions.lines=45 font.size=12 -e ncmpcpp")
         end,
 
@@ -458,7 +458,7 @@ customKeys = gears.table.join(
         { modkey, "Shift" }, "t",
 
         function()
-            awful.spawn.with_shell(
+            awful.spawn(
             "alacritty -o window.dimensions.columns=100 window.dimensions.lines=40 font.size=12 -e sh -c '/home/mitsos/.local/bin/listo'")
         end,
 
@@ -469,7 +469,7 @@ customKeys = gears.table.join(
         { modkey, "Shift" }, "e",
 
         function()
-            awful.spawn.with_shell("vscodium")
+            awful.spawn("vscodium")
         end,
 
         { description = "launch vscodium", group = "applications" }
@@ -479,7 +479,7 @@ customKeys = gears.table.join(
         { modkey }, "Escape",
 
         function()
-            awful.spawn.with_shell("alacritty -e btop")
+            awful.spawn("alacritty -e btop")
         end,
 
         { description = "launch btop", group = "applications" }
@@ -582,7 +582,7 @@ customKeys = gears.table.join(
 
     awful.key({}, "XF86Calculator",
         function()
-            awful.spawn.with_shell("alacritty -e python")
+            awful.spawn("alacritty -e python")
         end,
 
         { description = "launch a python interpreter", group = "applications" }
@@ -590,7 +590,7 @@ customKeys = gears.table.join(
 
     awful.key({}, "Print",
         function()
-            awful.spawn.with_shell("flameshot gui")
+            awful.spawn("flameshot gui")
         end,
 
         { description = "capture a screenshot (selection)", group = "utility" }
@@ -598,7 +598,7 @@ customKeys = gears.table.join(
 
     awful.key({ "Control" }, "Print",
         function()
-            awful.spawn.with_shell("flameshot launcher")
+            awful.spawn("flameshot launcher")
         end,
 
         { description = "capture a screenshot (launcher)", group = "utility" }
@@ -606,7 +606,7 @@ customKeys = gears.table.join(
 
     awful.key({ modkey }, "v",
         function()
-            awful.spawn.with_shell("copyq toggle")
+            awful.spawn("copyq toggle")
         end,
 
         { description = "open/close the clipboard manager (copyq)", group = "utility" }
@@ -626,6 +626,15 @@ customKeys = gears.table.join(
         end,
 
         { description = "change keyboard layout", group = "utility" }
+    ),
+
+
+    awful.key({ modkey, "Shift" }, "s",
+        function()
+            awful.spawn("qutebrowser --target private-window '/home/mitsos/Downloads/vim cheatsheet/Vim Cheat Sheet.html'")
+        end,
+
+        { description = "show vim cheat sheet", group = "utility" }
     )
 )
 
@@ -687,13 +696,16 @@ awful.rules.rules = {
                 "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
                 "Wpa_gui",
                 "veromix",
-                "xtightvncviewer" },
+                "xtightvncviewer",
+                "file-roller"
+            },
 
             -- Note that the name property shown in xprop might be set slightly after creation of the client
             -- and the name shown there might not match defined rules here.
             name = {
                 "Event Tester", -- xev.
                 "Friends List",
+                "Figure", -- Octave/Matlab plots
             },
             role = {
                 "AlarmWindow", -- Thunderbird's calendar.

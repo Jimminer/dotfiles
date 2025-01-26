@@ -4,5 +4,6 @@ return {
     cpuInfo = require("customWidgets.cpuInfo"),
     gpuInfo = require("customWidgets.gpuInfo"),
     memoryInfo = require("customWidgets.memoryInfo"),
-    languageChange = require("customWidgets.languageChange")
+    languageChange = require("customWidgets.languageChange"),
+    vpnInfo = require("customWidgets.vpnInfo"),
 }

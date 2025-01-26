@@ -16,9 +16,14 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/blackburn"
-theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/2023-10-19_02-50.png"
+-- theme.wallpaper                                 = os.getenv("HOME") .. "/.local/share/Steam/steamapps/workshop/content/431960/2924679310/wall_1.mp4"
+-- theme.wallpaper                                 = os.getenv("HOME") .. "/video_opt.mp4"
+-- theme.wallpaper                                 = os.getenv("HOME") .. "/.local/share/Steam/steamapps/workshop/content/431960/2193383989/y2mate.com - Duck spinning to the rhythm_2rcGfc7RqE8_1080p.mp4"
+-- theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/2023-10-19_02-50.png"
+-- theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/1315106.jpeg"
+theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/sitanka wallpaper.png"
 theme.font                                      = "Clear Sans Regular 10"
-theme.taglist_font                              = "Hack Nerd Font Mono 23"
+theme.taglist_font                              = "JetBrainsMono Nerd Font Mono 23"
 theme.fg_normal                                 = "#FFFFFF"
 theme.fg_focus                                  = "#9245ff"
 theme.bg_normal                                 = "#060606"

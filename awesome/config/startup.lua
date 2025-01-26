@@ -1,29 +1,46 @@
 local awful = require("awful")
 
+local customWidgets = require("customWidgets")
 local customCommands = require("customCommands")
-local runCommand = customCommands.runCommand
-local runInTag = customCommands.runInTag
-
+-- local runCommand = customCommands.runCommand
+-- local runInTag = customCommands.runInTag
 
 -- Save a file in /tmp to indicate that awesome has initialized so that programs don't run again when awesome restarts
-if (runCommand("test -f /tmp/awesome-startup && echo 1 || echo 0"):sub(0, -2) == "1") then
+local file = io.open("/tmp/awesome-startup", "r")
+if file then
+    file:close()
     return
-else
-    runCommand("touch /tmp/awesome-startup")
 end
 
+-- Create the /tmp file
+io.open("/tmp/awesome-startup", "w"):close()
 
-awful.spawn.with_shell("xrandr -s 2560x1440 -r 165")                                    -- set screen to 1440p 165Hz
-awful.spawn.with_shell("xset -dpms")                                                    -- disable dpms | see https://wiki.archlinux.org/title/Display_Power_Management_Signaling
-awful.spawn.with_shell("xset s off")                                                    -- disable screen saver
-awful.spawn.with_shell("picom -b --config $HOME/.config/picom/picom.conf")              -- start picom compositor
-awful.spawn.with_shell("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")     -- start policy kit
-awful.spawn.with_shell("copyq")                                                         -- start copyq (clipboard manager)
-awful.spawn.with_shell("flameshot")                                                     -- start flameshot (screenshot utility)
-awful.spawn.with_shell("sunshine")                                                      -- remote desktop control (through moonlight)
-awful.spawn.with_shell("corectrl --minimize-systray")                                   -- start corectrl (cpu, gpu controller)
-awful.spawn.with_shell("nm-applet")                                                     -- start network manager
+-- Symlink rofi cache from ~/.config to ~/.cache
+os.execute("mkdir -p ~/.cache && ln -s ~/.config/rofi/rofi3.druncache ~/.cache/rofi3.druncache")
 
+-- Start programs
+awful.spawn.easy_async("true", function ()
+    awful.spawn("xrandr -s 2560x1440 -r 165")                                           -- set screen to 1440p 165Hz
+    awful.spawn("xset -dpms")                                                           -- disable dpms | see https://wiki.archlinux.org/title/Display_Power_Management_Signaling
+    awful.spawn("xset s off")                                                           -- disable screen saver
+    awful.spawn("nm-applet")                                                            -- network manager
+    awful.spawn("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")            -- policy kit
+    awful.spawn("thunar --daemon")
+    awful.spawn("copyq")                                                                -- copyq (clipboard manager)
+    awful.spawn("flameshot")                                                            -- flameshot (screenshot utility)
+    awful.spawn("corectrl --minimize-systray")                                          -- corectrl (cpu, gpu controller)
+    awful.spawn("openrgb --startminimized --profile main")
+    awful.spawn.with_shell("picom -b --config $HOME/.config/picom/picom.conf")          -- picom compositor
+    awful.spawn.with_shell("echo -e '\n\n'$(date) | tee -a ~/.logs/sunshine.log ~/.logs/sunshine_errors.log && sunshine 1>> ~/.logs/sunshine.log 2>> ~/.logs/sunshine_errors.log") -- remote desktop server
+    awful.spawn("xmodmap " .. os.getenv("HOME") .. "/.config/xmodmap/disable-caps-lock.xmodmap")
+    awful.spawn("xmodmap " .. os.getenv("HOME") .. "/.config/xmodmap/right-alt-to-left-super.xmodmap")
+end)
+
+-- Start programs after a delay
+awful.spawn.easy_async_with_shell("sleep 5", function ()
+    customWidgets.languageChange.initialize()
+    -- awful.spawn("setxkbmap -option caps:none")
+end)
 
 -- awful.spawn.with_shell("xfce4-power-manager")
 -- awful.spawn.with_shell("blueberry-tray")

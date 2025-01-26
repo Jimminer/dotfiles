@@ -128,4 +128,16 @@
 	<other-files/>
 	<text-files/>
 </action>
+<action>
+	<icon>image-x-generic</icon>
+	<name>Extract icons from exe</name>
+	<submenu></submenu>
+	<unique-id>1702341156543073-1</unique-id>
+	<command>7z e %f -o&quot;Exe Icons&quot; &quot;.rsrc/ICON/*&quot;</command>
+	<description>Extracts all embedded icons from an exe file to a folder</description>
+	<range>*</range>
+	<patterns>*.exe</patterns>
+	<other-files/>
+	<text-files/>
+</action>
 </actions>

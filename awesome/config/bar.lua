@@ -10,7 +10,6 @@ local dpi = beautiful.xresources.apply_dpi
 local freedesktop   = require("freedesktop")
 local customWidgets = require("customWidgets")
 local customCommands = require("customCommands")
-local runCommand = customCommands.runCommand
 
 
 local wibarSeparator = wibox.widget.textbox()
@@ -29,7 +28,7 @@ myawesomemenu = {
 mysystemmenu = {
     { " ━━━━━━━━━━━━", nil },
     { "open terminal", terminal, menubar.utils.lookup_icon("utilities-terminal") },
-    { "log out", function() runCommand("rm /tmp/awesome-startup"); awesome.quit() end, menubar.utils.lookup_icon("system-log-out") },
+    { "log out", function() os.remove("/tmp/awesome-startup"); awesome.quit() end, menubar.utils.lookup_icon("system-log-out") },
     { "sleep", "systemctl suspend", menubar.utils.lookup_icon("system-suspend") },
     { "reboot", "systemctl reboot", menubar.utils.lookup_icon("system-reboot") },
     { "shutdown", "systemctl poweroff", menubar.utils.lookup_icon("system-shutdown") },
@@ -72,10 +71,26 @@ local function set_wallpaper(s)
     if beautiful.wallpaper then
         local wallpaper = beautiful.wallpaper
         -- If wallpaper is a function, call it with the screen
+        awful.spawn("pkill xwinwrap && sleep 0.1")
+
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.maximized(wallpaper, s, true)
+        
+        if (type(wallpaper) == "string") then
+            local extension = wallpaper:sub(-4)
+
+            if (extension == ".mp4" or extension == ".mkv" or extension == ".gif") then
+                local winWrapOptions = "-fs -s -ni -nf -b -un -ov -fdt"
+                local mpvOptions = "mpv --loop=inf --no-audio --no-osc --no-border --no-keepaspect --force-window --no-config '" .. wallpaper .. "' --wid=%WID"
+                local mplayerOptions = "mplayer -loop 0 -nosound -quiet -osdlevel 0 -nolirc -noborder -fixed-vo -input conf=/dev/null '" .. wallpaper .. "' -wid %WID"
+
+                awful.spawn.with_shell("xwinwrap " .. winWrapOptions .. " -- " .. mplayerOptions)
+
+            else
+                gears.wallpaper.maximized(wallpaper, s, true)
+            end
+        end
     end
 end
 
@@ -225,6 +240,8 @@ awful.screen.connect_for_each_screen(function(s)
     table.insert(wiboxRightWidgets, customWidgets.memoryInfo)
 
     table.insert(wiboxRightWidgets, customWidgets.volume.widget)
+
+    table.insert(wiboxRightWidgets, customWidgets.vpnInfo.widget)
 
     table.insert(wiboxRightWidgets, customWidgets.languageChange.widget)
 
